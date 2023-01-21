@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "gui.h": "c",
+        "cstdio": "c",
+        "matrix.h": "c"
+    }
+}
