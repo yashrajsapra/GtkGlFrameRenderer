@@ -1,3 +1,6 @@
+#include <GL/gl.h>
+
+void initProgram (void);
 void programs_init (void);
 void program_cube_use (void);
 void program_bkgd_use (void);

@@ -1,5 +1,6 @@
 #include <stdbool.h>
-
+#include <stdlib.h>
+#include <iostream>
 #include <GL/gl.h>
 #include <gtk/gtk.h>
 
@@ -52,8 +53,9 @@ on_realize (GtkGLArea *glarea)
 	// Print version info:
 	const GLubyte* renderer = glGetString(GL_RENDERER);
 	const GLubyte* version = glGetString(GL_VERSION);
-	printf("Renderer: %s\n", renderer);
-	printf("OpenGL version supported %s\n", version);
+
+	std::cout << "Renderer:" << std::endl;
+	std::cout << "OpenGL version supported " << version << std::endl;
 
 	// Enable depth buffer:
 	gtk_gl_area_set_has_depth_buffer(glarea, TRUE);
@@ -62,7 +64,7 @@ on_realize (GtkGLArea *glarea)
 	programs_init();
 
 	// Init background:
-	background_init();
+	// background_init();
 
 	// Init model:
 	model_init();
@@ -153,7 +155,8 @@ static void
 connect_window_signals (GtkWidget *window)
 {
 	struct signal signals[] = {
-		{ "destroy",			G_CALLBACK(gtk_main_quit),	0			},
+		//yash change
+		{ "destroy",			G_CALLBACK(gtk_main_quit),	(GdkEventMask)0			},
 	};
 
 	connect_signals(window, signals, NELEM(signals));
@@ -163,9 +166,10 @@ static void
 connect_glarea_signals (GtkWidget *glarea)
 {
 	struct signal signals[] = {
-		{ "realize",			G_CALLBACK(on_realize),		0			},
-		{ "render",			G_CALLBACK(on_render),		0			},
-		{ "resize",			G_CALLBACK(on_resize),		0			},
+		//yash change
+		{ "realize",			G_CALLBACK(on_realize),		(GdkEventMask)0			},
+		{ "render",			G_CALLBACK(on_render),		(GdkEventMask)0			},
+		{ "resize",			G_CALLBACK(on_resize),		(GdkEventMask)0			},
 		{ "scroll-event",		G_CALLBACK(on_scroll),		GDK_SCROLL_MASK		},
 		{ "button-press-event",		G_CALLBACK(on_button_press),	GDK_BUTTON_PRESS_MASK	},
 		{ "button-release-event",	G_CALLBACK(on_button_release),	GDK_BUTTON_RELEASE_MASK	},
@@ -190,17 +194,19 @@ gui_init (int *argc, char ***argv)
 bool
 gui_run (void)
 {
+
+	//yash change typecast to gtkwidget
 	GtkWidget *glarea, *mainFixed;
 	// Create toplevel window, add GtkGLArea:
 	GtkBuilder *m_builder = gtk_builder_new();
 	m_builder = gtk_builder_new();
 	gtk_builder_add_from_file(m_builder, "atlui.glade", NULL);
 
-	GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	GtkWidget *window = (GtkWidget *)gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_default_size ((GtkWindow*)window, 1920, 1080);
-	glarea = gtk_builder_get_object(m_builder, "glareadraw");
+	glarea = (GtkWidget *)gtk_builder_get_object(m_builder, "glareadraw");
 	// GtkWidget *glarea = gtk_gl_area_new();
-	mainFixed = gtk_builder_get_object(m_builder, "mainWidget");
+	mainFixed = (GtkWidget *)gtk_builder_get_object(m_builder, "mainWidget");
 	gtk_container_add(GTK_CONTAINER(window), mainFixed);
 
 	// Connect GTK signals:

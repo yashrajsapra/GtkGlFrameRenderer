@@ -1,7 +1,15 @@
+
+#include <stdlib.h>
+#include <iostream>
 #include <stddef.h>
 #include <math.h>
-#include <GL/gl.h>
-// #include <opencv2/opencv.h>
+//yash cahnge
+// #include <GL/gl.h>
+#ifndef GL_H
+#define GL_H
+#include <GL/glew.h>
+#include <GL/glut.h>
+#endif
 
 #include "matrix.h"
 #include "program.h"
@@ -80,44 +88,75 @@ void
 model_init (void)
 {
 	// Define our cube:
-	struct cube cube =
-	{ .face[0].corner =
-	  { { 0, 1, 0 }
-	  , { 1, 0, 0 }
-	  , { 0, 0, 0 }
-	  , { 1, 1, 0 }
-	  }
-	, .face[1].corner =
-	  { { 0, 0, 0 }
-	  , { 1, 0, 1 }
-	  , { 0, 0, 1 }
-	  , { 1, 0, 0 }
-	  }
-	, .face[2].corner =
-	  { { 1, 0, 0 }
-	  , { 1, 1, 1 }
-	  , { 1, 0, 1 }
-	  , { 1, 1, 0 }
-	  }
-	, .face[3].corner =
-	  { { 1, 1, 0 }
-	  , { 0, 1, 1 }
-	  , { 1, 1, 1 }
-	  , { 0, 1, 0 }
-	  }
-	, .face[4].corner =
-	  { { 0, 1, 0 }
-	  , { 0, 0, 1 }
-	  , { 0, 1, 1 }
-	  , { 0, 0, 0 }
-	  }
-	, .face[5].corner =
-	  { { 0, 1, 1 }
-	  , { 1, 0, 1 }
-	  , { 1, 1, 1 }
-	  , { 0, 0, 1 }
-	  }
-	} ;
+	// yash changes
+	// struct cube cube =
+	// { .face[0].corner =
+	//   { { 0, 1, 0 }
+	//   , { 1, 0, 0 }
+	//   , { 0, 0, 0 }
+	//   , { 1, 1, 0 }
+	//   }
+	// , .face[1].corner =
+	//   { { 0, 0, 0 }
+	//   , { 1, 0, 1 }
+	//   , { 0, 0, 1 }
+	//   , { 1, 0, 0 }
+	//   }
+	// , .face[2].corner =
+	//   { { 1, 0, 0 }
+	//   , { 1, 1, 1 }
+	//   , { 1, 0, 1 }
+	//   , { 1, 1, 0 }
+	//   }
+	// , .face[3].corner =
+	//   { { 1, 1, 0 }
+	//   , { 0, 1, 1 }
+	//   , { 1, 1, 1 }
+	//   , { 0, 1, 0 }
+	//   }
+	// , .face[4].corner =
+	//   { { 0, 1, 0 }
+	//   , { 0, 0, 1 }
+	//   , { 0, 1, 1 }
+	//   , { 0, 0, 0 }
+	//   }
+	// , .face[5].corner =
+	//   { { 0, 1, 1 }
+	//   , { 1, 0, 1 }
+	//   , { 1, 1, 1 }
+	//   , { 0, 0, 1 }
+	//   }
+	// } ;
+	struct cube cube;
+	cube.face[0].corner[0]={{ 0, 1, 0 },{0,0,0}};
+	cube.face[0].corner[1]={{ 1, 0, 0 },{0,0,0}};
+	cube.face[0].corner[2]={{ 0, 0, 0 },{0,0,0}};
+	cube.face[0].corner[3]={{ 1, 1, 0 },{0,0,0}};
+
+	cube.face[1].corner[0]={{ 0, 0, 0 },{0,0,0}};
+	cube.face[1].corner[1]={{ 1, 0, 1 },{0,0,0}};
+	cube.face[1].corner[2]={{ 0, 0, 1 },{0,0,0}};
+	cube.face[1].corner[3]={{ 1, 0, 0 },{0,0,0}};
+
+	cube.face[2].corner[0]={{ 1, 0, 0 },{0,0,0}};
+	cube.face[2].corner[1]={{ 1, 1, 1 },{0,0,0}};
+	cube.face[2].corner[2]={{ 1, 0, 1 },{0,0,0}};
+	cube.face[2].corner[3]={{ 1, 1, 0 },{0,0,0}};
+
+	cube.face[3].corner[0]={{ 1, 1, 0 },{0,0,0}};
+	cube.face[3].corner[1]={{ 0, 1, 1 },{0,0,0}};
+	cube.face[3].corner[2]={{ 1, 1, 1 },{0,0,0}};
+	cube.face[3].corner[3]={{ 0, 1, 0 },{0,0,0}};
+
+	cube.face[4].corner[0]={{ 0, 1, 0 },{0,0,0}};
+	cube.face[4].corner[1]={{ 0, 0, 1 },{0,0,0}};
+	cube.face[4].corner[2]={{ 0, 1, 1 },{0,0,0}};
+	cube.face[4].corner[3]={{ 0, 0, 0 },{0,0,0}};
+
+	cube.face[5].corner[0]={{ 0, 1, 1 },{0,0,0}};
+	cube.face[5].corner[1]={{ 1, 0, 1 },{0,0,0}};
+	cube.face[5].corner[2]={{ 1, 1, 1 },{0,0,0}};
+	cube.face[5].corner[3]={{ 0, 0, 1 },{0,0,0}};
 
 	// Generate colors for each corner based on its position:
 	FOREACH (cube.face, face) {
@@ -241,8 +280,8 @@ static GLuint matToTexture(unsigned char* buffer , GLenum minFilter, GLenum magF
             magFilter == GL_NEAREST_MIPMAP_LINEAR ||
             magFilter == GL_NEAREST_MIPMAP_NEAREST)
     {
-		printf("You can't use MIPMAPs for magnification - setting filter to GL_LINEAR\n");
-        // cout << "You can't use MIPMAPs for magnification - setting filter to GL_LINEAR" << endl;
+		// printf("You can't use MIPMAPs for magnification - setting filter to GL_LINEAR\n");
+        std::cout << "You can't use MIPMAPs for magnification - setting filter to GL_LINEAR" << std::endl;
         magFilter = GL_LINEAR;
     }
 

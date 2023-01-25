@@ -1,13 +1,25 @@
 #include "matrix.h"
 
-static struct {
-	float matrix[16];
-	float width;
-	float height;
-	float z;
-}
-state = {
-	.z = 2.0f,
+// static struct {
+// 	float matrix[16];
+// 	float width;
+// 	float height;
+// 	float z;
+// }
+// state = {
+// 	.z = 2.0f,
+// };
+
+struct State {
+    float matrix[16];
+    float width;
+    float height;
+    float z;
+} state {
+    {0}, // Initialize all elements of matrix to 0
+    0,   // Initialize width to 0
+    0,   // Initialize height to 0
+    2.0f // Initialize z to 2.0f
 };
 
 const float *

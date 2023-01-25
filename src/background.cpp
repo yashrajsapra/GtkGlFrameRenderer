@@ -1,6 +1,12 @@
 #include <gdk/gdk.h>
-#include <GL/gl.h>
-
+//yash change
+// #include <GL/gl.h>
+#ifndef GL_H
+#define GL_H
+#include <GL/glew.h>
+#include <GL/glut.h>
+#endif
+// #include <GL/gl.h>
 #include "program.h"
 
 static GLuint texture;
@@ -60,17 +66,34 @@ background_draw (void)
 {
 	// Array of indices. We define two counterclockwise triangles:
 	// 0-2-3 and 2-0-1
-	static GLubyte index[6] = {
-		0, 1, 1,
-		2, 0, 1,
-		1, 3, 0
+	//yash change
+	// static GLubyte index[6] = {
+	// 	0, 1, 1,
+	// 	2, 0, 1,
+	// 	1, 3, 0
+	// };
+	static GLubyte triangle1[] = {
+    0, 1, 2,
+    0, 2, 3
 	};
+
+	static GLubyte triangle2[] = {
+		4, 5, 6,
+		4, 6, 7
+	};
+
 
 	program_bkgd_use();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, index);
+	//yash change
+	// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, index);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, triangle1);
+
+	// Draw the second triangle
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, triangle2);
+	//yash change end
 	glBindVertexArray(0);
 }
 
@@ -78,12 +101,15 @@ void
 background_init (void)
 {
 	// Inline data declaration:
-	extern char _binary_textures_background_png_start[];
-	extern char _binary_textures_background_png_end[];
+	// extern char _binary_textures_background_png_start[];
+	// extern char _binary_textures_background_png_end[];
 
-	char *start = _binary_textures_background_png_start;
-	size_t len = _binary_textures_background_png_end
-		   - _binary_textures_background_png_start;
+	// char *start = _binary_textures_background_png_start;
+	// size_t len = _binary_textures_background_png_end
+	// 	   - _binary_textures_background_png_start;
+
+	char *start ="start";
+	size_t len = strlen(start);
 
 	GInputStream *stream;
 	GdkPixbuf *pixbuf;
