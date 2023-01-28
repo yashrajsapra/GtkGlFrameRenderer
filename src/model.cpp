@@ -10,7 +10,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #endif
-
+// #include <opencv2/opencv.hpp>
 #include "matrix.h"
 #include "program.h"
 #include "util.h"
@@ -371,26 +371,48 @@ int global_count = 0;
 void 
 draw_frames(void)
 {
-	unsigned char* buffer = (unsigned char*) malloc(640 * 480 * 3);
-	    // Fill the buffer with green color
+	// unsigned char* buffer = (unsigned char*) malloc(640 * 480 * 3);
+	//     // Fill the buffer with green color
 
-	if(global_count % 2 == 0)
+	// if(global_count % 2 == 0)
+	// {
+	// 	for (int i = 0; i < 640 * 480 * 3; i += 3) {
+    // 	    buffer[i] = 0;   // Blue channel
+    //     	buffer[i + 1] = 255; // Green channel
+    //     	buffer[i + 2] = 0;  // Red channel
+    // 	}
+	// }
+	// else
+	// {
+	// 	for (int i = 0; i < 640 * 480 * 3; i += 3) {
+    // 	    buffer[i] = 255;   // Blue channel
+    //     	buffer[i + 1] = 0; // Green channel
+    //     	buffer[i + 2] = 0;  // Red channel
+    // 	}
+
+	// }
+	unsigned char *buffer = (unsigned char *)malloc(640 * 480 * 3);
+	// Fill the buffer with green color
+
+	if (global_count % 2 == 0)
 	{
-		for (int i = 0; i < 640 * 480 * 3; i += 3) {
-    	    buffer[i] = 0;   // Blue channel
-        	buffer[i + 1] = 255; // Green channel
-        	buffer[i + 2] = 0;  // Red channel
-    	}
+		for (int i = 0; i < 640 * 480 * 3; i += 3)
+		{
+			buffer[i] = 0;		 // Blue channel
+			buffer[i + 1] = 255; // Green channel
+			buffer[i + 2] = 0;	 // Red channel
+		}
 	}
 	else
 	{
-		for (int i = 0; i < 640 * 480 * 3; i += 3) {
-    	    buffer[i] = 255;   // Blue channel
-        	buffer[i + 1] = 0; // Green channel
-        	buffer[i + 2] = 0;  // Red channel
-    	}
-
+		for (int i = 0; i < 640 * 480 * 3; i += 3)
+		{
+			buffer[i] = 255;   // Blue channel
+			buffer[i + 1] = 0; // Green channel
+			buffer[i + 2] = 0; // Red channel
+		}
 	}
+
 
 	int window_height = 480;
 	int window_width = 640;

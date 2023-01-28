@@ -64,7 +64,7 @@ on_realize (GtkGLArea *glarea)
 	programs_init();
 
 	// Init background:
-	// background_init();
+	background_init();
 
 	// Init model:
 	model_init();
